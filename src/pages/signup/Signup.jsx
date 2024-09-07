@@ -33,7 +33,7 @@ export default function Signup() {
         />
       </label>
       <label>
-        <span>display name: </span>
+        <span>username: </span>
         <input 
           type="text" 
           onChange={(e) => setDisplayName(e.target.value)}
