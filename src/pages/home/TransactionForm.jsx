@@ -3,7 +3,7 @@ import { useFirestore } from "../../hooks/useFirestore";
 
 export default function TransactionForm({ uid }) {
   const [thing, setThing] = useState('')
-  const [amount, setAmount] = useState('')
+  const [amount, setAmount] = useState(0)
   const {addDocument, response} = useFirestore("transaction")
 
   const handleSubmit = (e) => {
@@ -18,7 +18,7 @@ export default function TransactionForm({ uid }) {
   useEffect(() => {
     if (response.success) {
       setThing('')
-      setAmount('')
+      setAmount(0)
     }
   }, [response.success])
 
@@ -40,7 +40,7 @@ export default function TransactionForm({ uid }) {
           <input 
             type="number"
             min="1"
-            onChange={(e) => setAmount(e.target.value)}
+            onChange={(e) => setAmount(parseInt(e.target.value))}
             value={amount}
             required
           />

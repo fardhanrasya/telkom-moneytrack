@@ -8,7 +8,7 @@ export default function TransactionList({docs}) {
       {docs.map((doc) => (
         <li key={doc.id}>
           <p className={styles.name}>{doc.thing}</p>
-          <p className={styles.amount}>Rp{doc.amount.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</p>
+          <p className={styles.amount}>Rp{String(doc.amount).replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</p>
           <button onClick={() => deleteDocument(doc.id)}>x</button>
         </li>
       ))}
