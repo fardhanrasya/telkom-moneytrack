@@ -2,25 +2,31 @@ import { useEffect, useState } from "react";
 import { useFirestore } from "../../hooks/useFirestore";
 
 export default function TransactionForm({ uid }) {
-  const [thing, setThing] = useState('')
-  const [amount, setAmount] = useState(0)
-  const {addDocument, response} = useFirestore("transaction")
+  const [thing, setThing] = useState('');
+  const [amount, setAmount] = useState('');
+  const { addDocument, response } = useFirestore("transaction");
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
+
+    if (!thing || amount <= 0) {
+      alert("Please fill out valid transaction details.");
+      return;
+    }
+
     addDocument({
       uid, 
       thing, 
-      amount,
-    })
-  }
+      amount: parseFloat(amount),
+    });
+  };
 
   useEffect(() => {
     if (response.success) {
-      setThing('')
-      setAmount(0)
+      setThing('');
+      setAmount('');
     }
-  }, [response.success])
+  }, [response.success]);
 
   return (
     <>
@@ -40,7 +46,7 @@ export default function TransactionForm({ uid }) {
           <input 
             type="number"
             min="1"
-            onChange={(e) => setAmount(parseInt(e.target.value))}
+            onChange={(e) => setAmount(e.target.value)}
             value={amount}
             required
           />
@@ -49,5 +55,5 @@ export default function TransactionForm({ uid }) {
         {response.isPending && <button disabled>Loading</button>}
       </form>
     </>
-  )
+  );
 }
