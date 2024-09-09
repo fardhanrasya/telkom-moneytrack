@@ -5,11 +5,12 @@ export default function TransactionForm({ uid }) {
   const [thing, setThing] = useState('');
   const [amount, setAmount] = useState('');
   const { addDocument, response } = useFirestore("transaction");
+  const checkIfIntOrNot = parseInt(amount)
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!thing || amount <= 0) {
+    if (!thing || amount <= 0 || !Number.isInteger(checkIfIntOrNot)) {
       alert("Please fill out valid transaction details.");
       return;
     }
